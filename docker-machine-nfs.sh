@@ -175,7 +175,8 @@ restartBoot2Docker()
     if isPropertyNotSet $prop_machine_name; then echoError "'prop_machine_name' not set!"; exit 1; fi
     
     docker-machine restart $prop_machine_name > /dev/null
-    
+    docker-machine env $prop_machine_name > /dev/null
+    sleep 10
     echoSuccess "OK"
 }
 
@@ -190,7 +191,7 @@ isNFSMounted()
 verifyNFSMount()
 {
     echoInfo "Verify NFS mount ... \t\t\t"
-    
+
     if [ "$(isNFSMounted)" = "false" ]; then
         echoError "Cannot detect the NFS mount :("; exit 1
     fi
